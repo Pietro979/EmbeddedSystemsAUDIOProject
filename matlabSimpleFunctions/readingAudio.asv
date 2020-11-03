@@ -1,0 +1,10 @@
+%% Reading WAV files in matlab
+[y,Fs] = audioread('ex1.wav');
+
+%sound(y,Fs);
+
+dist = rand(size(y));
+
+y1 = zeros(size(y));
+
+for i=:
