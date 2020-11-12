@@ -1,0 +1,3 @@
+freertos.c:89:6:MX_FREERTOS_Init	8	static
+freertos.c:130:6:StartBlink01	16	static
+freertos.c:165:6:StartBlink02	16	static
