@@ -1,6 +1,11 @@
-% Parametry symulacji
+closa all
+clear all
 
- 
+%Parametry 
+dt = 0.01;
+t_end = 10;
+t = 0:dt:t_end;
+
 % Odchylenie standardowe pomiaru
 std_dev = 10;
  
@@ -21,10 +26,10 @@ xpost = x0;
 Ppost = P0;
  
 
-%% Reading WAV files in matlab
+%% Wczytanie audio
 [Y,Fs] = audioread('ex1.wav');
 
-%% Create some disturbances
+%% Zakłócenia 
 dist = rand(size(Y));
 
 Yf = Y;
@@ -34,12 +39,9 @@ for i= 50000:200000
     Y(i) = Y(i) + rand();
 end
 Y
-%% Play audio
-%sound(Y, Fs);
 
-dt = 0.01;
-t_end = 10;
-t = 0:dt:t_end;
+
+
 
 for i = 1:size(t,2)
     
@@ -67,8 +69,3 @@ figure(2)
 plot(Yf)
 title('po Kalmanie')
 sound(Yf, Fs);
-% plot(t, Y, 'b', t, Yf, 'r', 'LineWidth', 1.5)
-% title('Filtr Kalmana')
-% xlabel('Czas')
-% ylabel('Sygnal mierzony')
-% legend('Wartosc mierzona', 'Wartosc estymowana')
