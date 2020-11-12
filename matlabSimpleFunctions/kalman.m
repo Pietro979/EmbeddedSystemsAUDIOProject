@@ -38,10 +38,6 @@ Yf(1) = x0;
 for i= 50000:200000
     Y(i) = Y(i) + rand();
 end
-Y
-
-
-
 
 for i = 1:size(t,2)
     
