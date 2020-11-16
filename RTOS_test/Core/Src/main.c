@@ -19,6 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os.h"
 #include "usb_device.h"
 #include "gpio.h"
 
@@ -55,6 +56,7 @@ uint8_t ReceivedDataFlag = 0; // Flaga informujaca o odebraniu danych
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	if(GPIO_Pin == Button_Pin){
@@ -96,11 +98,17 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
 
+  /* Init scheduler */
+  osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
+  MX_FREERTOS_Init();
+  /* Start scheduler */
+  osKernelStart();
+
+  /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -108,7 +116,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  if (HAL_GPIO_ReadPin(Button_GPIO_Port, Button_Pin) == GPIO_PIN_SET) {
+	  /*if (HAL_GPIO_ReadPin(Button_GPIO_Port, Button_Pin) == GPIO_PIN_SET) {
 	  		HAL_Delay(100);
 	  		if (HAL_GPIO_ReadPin(Button_GPIO_Port, Button_Pin)	== GPIO_PIN_SET) {
 
@@ -122,7 +130,7 @@ int main(void)
 
 	  	MessageLength = sprintf(DataToSend, "Odebrano: %s\n\r", ReceivedData);
 	  	CDC_Transmit_FS(DataToSend, MessageLength);
-	  }
+	  }*/
 
   }
   /* USER CODE END 3 */

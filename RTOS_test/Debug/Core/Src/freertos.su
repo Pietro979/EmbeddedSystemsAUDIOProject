@@ -1,0 +1,3 @@
+freertos.c:82:6:MX_FREERTOS_Init	8	static
+freertos.c:123:6:StartDefaultTask	16	static
+freertos.c:144:6:StartTask02	16	static
