@@ -1,0 +1,10 @@
+wav_player.c:35:13:wavPlayer_reset	4	static
+wav_player.c:45:6:wavPlayer_fileSelect	64	static
+wav_player.c:66:6:wavPlayer_play	8	static
+wav_player.c:82:6:wavPlayer_process	8	static
+wav_player.c:131:6:wavPlayer_stop	8	static
+wav_player.c:140:6:wavPlayer_pause	8	static
+wav_player.c:144:6:wavPlayer_resume	8	static
+wav_player.c:152:6:wavPlayer_isFinished	4	static
+wav_player.c:160:6:audioI2S_halfTransfer_Callback	4	static
+wav_player.c:164:6:audioI2S_fullTransfer_Callback	4	static
