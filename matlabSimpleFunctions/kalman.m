@@ -33,14 +33,6 @@ Ppost = P0;
 %% Zakłócenia 
 dist = rand(size(Y));
 
-
-
-for i= 100000:500000
-    Y(i) = Y(i) + rand();
-end
-
-
-
 Yf(1) = x0;
 
 for i = 1:size(Y)

@@ -1,17 +1,18 @@
 clear KalmanFilterSpeechEnhancement
 clc
-
+close all
+clear all
 %% Setting up the variables before jumping into processing.
-WinLenSec = 0.0025; % Window length in seconds.
-HopPercent = 1; % percentage of hopping.
-AROrder = 20; % Auto regressive filter order.
-NumIter = 7;
+WinLenSec = 0.001; % Window length in seconds.
+HopPercent = 0.1; % percentage of hopping.
+AROrder = 10; % Auto regressive filter order.
+NumIter = 10;
 
 %% Reading Input signal and creating noisy input as well.
-[Input, Fs] = audioread('frozenDist.wav');
+[Input, Fs] = audioread('queen.wav');
 Input = Input(:,1);
-Noise = normrnd(0,sqrt(0.01),size(Input));
-NoisyInput = Input + Noise;
+NoisyInput = awgn(Input,20);
+Noise = NoisyInput-Input;
 Time = (0:1/Fs:(length(Input)-1)/Fs)';
 
 %% Chopping session.
@@ -71,17 +72,17 @@ xlabel('Time in seconds')
 ylabel('Amlitude')
 title('Clean speech signal')
 figure
-plot(Time, Noise)
+plot(Noise)
 xlabel('Time in seconds')
 ylabel('Amlitude')
 title('Observation noise')
 figure
-plot(Time, NoisyInput)
+plot(NoisyInput)
 xlabel('Time in seconds')
 ylabel('Amlitude')
 title('Noisy input signal')
 figure
-plot(Time, Output)
+plot(Output)
 xlabel('Time in seconds')
 ylabel('Amlitude')
 title('Estimated clean output signal')
