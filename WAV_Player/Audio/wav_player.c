@@ -38,6 +38,27 @@ static void wavPlayer_reset(void)
   playerReadBytes = 0;
 }
 
+void filter()
+{
+    uint16_t i;
+    uint16_t changer[AUDIO_BUFFER_SIZE/2] = {0};
+    uint16_t result;
+    for(i = 0;i<AUDIO_BUFFER_SIZE/8;i++)
+    {
+        changer[(i*2)] = ((uint16_t)audioBuffer[(i*4)]<<8) + ((uint16_t)audioBuffer[(i*4)+1]);
+        changer[(i*2)+1] = ((uint16_t)audioBuffer[(i*4)+2]<<8) + ((uint16_t)audioBuffer[(i*4)+3]);
+        //result = (uint16_t)abs(changer[(i*2)] - changer[(i*2)+1]);
+        result = abs((changer[(i*2)] - changer[(i*2)+1]));
+
+        audioBuffer[(i*4)] = result>>8;
+        audioBuffer[(i*4)+1] = result;
+        audioBuffer[(i*4)+2] = result>>8;
+        audioBuffer[(i*4)+3] = result;
+        //printf("%i\n%i\n%i\n%i\n",audioBuffer[(i*4)],audioBuffer[(i*4)+1],audioBuffer[(i*4)+2],audioBuffer[(i*4)+3]);
+
+    }
+}
+
 /**
  * @brief Select WAV file to play
  * @retval returns true when file is found in USB Drive
@@ -71,6 +92,7 @@ void wavPlayer_play(void)
   //Read Audio data from USB Disk
   f_lseek(&wavFile, 0);
   f_read (&wavFile, &audioBuffer[0], AUDIO_BUFFER_SIZE, &playerReadBytes);
+  filter();
   audioRemainSize = fileLength - playerReadBytes;
   //Start playing the WAV
   audioI2S_play((uint16_t *)&audioBuffer[0], AUDIO_BUFFER_SIZE);
@@ -90,6 +112,7 @@ void wavPlayer_process(void)
     playerReadBytes = 0;
     playerControlSM = PLAYER_CONTROL_Idle;
     f_read (&wavFile, &audioBuffer[0], AUDIO_BUFFER_SIZE/2, &playerReadBytes);
+    filter();
     if(audioRemainSize > (AUDIO_BUFFER_SIZE / 2))
     {
       audioRemainSize -= playerReadBytes;
@@ -105,6 +128,7 @@ void wavPlayer_process(void)
     playerReadBytes = 0;
     playerControlSM = PLAYER_CONTROL_Idle;
     f_read (&wavFile, &audioBuffer[AUDIO_BUFFER_SIZE/2], AUDIO_BUFFER_SIZE/2, &playerReadBytes);
+    filter();
     if(audioRemainSize > (AUDIO_BUFFER_SIZE / 2))
     {
       audioRemainSize -= playerReadBytes;

@@ -108,7 +108,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   CS43_Init(hi2c1, MODE_I2S);
-  CS43_SetVolume(250);//0-255
+  CS43_SetVolume(200);//0-255
   CS43_Enable_RightLeft(CS43_RIGHT_LEFT);
 
   audioI2S_setHandle(&hi2s3);
@@ -154,7 +154,7 @@ int main(void)
         while(!wavPlayer_isFinished())
         {
           wavPlayer_process();
-          if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0))
+/*          if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0))
           {
             pauseResumeToggle^=1;
             if(pauseResumeToggle)
@@ -176,7 +176,7 @@ int main(void)
               }
             }
           }
-        }
+  */      }
         HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_RESET);
         HAL_Delay(1000);
       }
