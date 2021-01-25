@@ -1,0 +1,14 @@
+audioI2S.c:24:13:audioI2S_pllClockConfig	40	static
+audioI2S.c:64:13:I2S3_freqUpdate	16	static
+audioI2S.c:94:6:audioI2S_setHandle	16	static
+audioI2S.c:106:6:audioI2S_init	16	static
+audioI2S.c:118:6:audioI2S_play	16	static
+audioI2S.c:130:6:audioI2S_changeBuffer	16	static
+audioI2S.c:139:6:audioI2S_pause	8	static
+audioI2S.c:148:6:audioI2S_resume	8	static
+audioI2S.c:157:6:audioI2S_setVolume	16	static
+audioI2S.c:165:6:audioI2S_stop	8	static
+audioI2S.c:174:13:audioI2S_halfTransfer_Callback	4	static
+audioI2S.c:178:13:audioI2S_fullTransfer_Callback	4	static
+audioI2S.c:183:6:HAL_I2S_TxCpltCallback	16	static
+audioI2S.c:191:6:HAL_I2S_TxHalfCpltCallback	16	static
